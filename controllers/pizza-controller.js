@@ -55,7 +55,10 @@ const pizzaController = {
   // update pizza
   updatePizza({ params, body }, res) {
     // {new: true} will return the updated document. without it mongoose will return the original document.
-    Pizza.findByIdAndUpdate({ _id: params.id }, body, { new: true })
+    Pizza.findByIdAndUpdate({ _id: params.id }, body, {
+      new: true,
+      runValidators: true,
+    })
       .then((dbPizzaData) => {
         if (!dbPizzaData) {
           res.status(404).json({ message: "No pizza was found with this id" });
